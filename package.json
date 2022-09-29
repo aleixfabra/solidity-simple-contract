@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "deploy": "node deploy.js",
+    "lint": "npx eslint --ext .js ."
   },
   "author": "",
   "license": "ISC",
