@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 
 contract Lottery {
     address private owner;
-    address[] public players;
+    address payable[] public players;
 
     constructor() {
         owner = msg.sender;
@@ -18,7 +18,7 @@ contract Lottery {
     function enter() public payable {
         require(msg.value == .001 ether, "Value should be .001 ether");
 
-        players.push(msg.sender);
+        players.push(payable(msg.sender));
     }
 
     function random() private view returns (uint) {
@@ -30,12 +30,12 @@ contract Lottery {
 
         uint contractBalance = address(this).balance;
 
-        payable(players[winnerIndex]).transfer(contractBalance);
+        players[winnerIndex].transfer(contractBalance);
 
-        players = new address[](0);
+        players = new address payable[](0);
     }
 
-    function getPlayers() public view returns (address[] memory) {
+    function getPlayers() public view returns (address payable[] memory) {
         return players;
     }
 }
